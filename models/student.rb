@@ -24,7 +24,12 @@ attr_reader :id, :first_name, :last_name, :house_name, :age
 
   def self.all()
     sql = "SELECT * FROM students"
-    SqlRunner.run(sql)
+    student_info = SqlRunner.run(sql)
+    return Student.map_items(student_info)
   end
-  
+
+  def self.map_items(student_info)
+    result = Student.map_items(student_info)
+    return result.first()
+  end
 end
