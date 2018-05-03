@@ -29,7 +29,16 @@ attr_reader :id, :first_name, :last_name, :house_name, :age
   end
 
   def self.map_items(student_info)
-    result = Student.map_items(student_info)
-    return result.first()
+    result = student_info.map { |student|
+    Student.new( student ) }
+    return result
+  end
+
+  def find_student_by_id()
+  sql = "SELECT students.* FROM students
+  WHERE students.id = $1"
+  values = [@id]
+  student_info = SqlRunner.run(sql, values)
+  return Student.map_items(student_info)
   end
 end
